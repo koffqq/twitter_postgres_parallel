@@ -19,7 +19,7 @@ jobs:
         docker-compose up -d --build
         docker ps -a
         sleep 20
-        sh load_tweets_parallel.sh
+        bash load_tweets_parallel.sh
         docker-compose exec -T pg_normalized_batch ./check_answers.sh
 
 
