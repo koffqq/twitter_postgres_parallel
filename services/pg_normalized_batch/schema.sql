@@ -48,10 +48,7 @@ CREATE TABLE tweets (
     state_code VARCHAR(2),
     lang TEXT,
     place_name TEXT,
-    geo geometry,
-    FOREIGN KEY (id_users) REFERENCES users(id_users) DEFERRABLE INITIALLY DEFERRED,
-    FOREIGN KEY (in_reply_to_user_id) REFERENCES users(id_users) DEFERRABLE INITIALLY DEFERRED
-
+    geo geometry
     -- NOTE:
     -- We do not have the following foreign keys because they would require us
     -- to store many unhydrated tweets in this table.

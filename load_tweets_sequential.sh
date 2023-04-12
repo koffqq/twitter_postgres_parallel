@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 files=$(find data/*)
 
@@ -17,4 +17,4 @@ time python3 -u load_tweets.py --db=postgresql://postgres:pass@localhost:2219/ -
 echo '================================================================================'
 echo 'load pg_normalized_batch'
 echo '================================================================================'
-time python3 -u load_tweets_batch.py --db=postgresql://postgres:pass@localhost:3219/ --inputs $files
+time python3 -u load_tweets_batch.py --db=postgresql://postgres:pass@localhost:32199/ --inputs $files
