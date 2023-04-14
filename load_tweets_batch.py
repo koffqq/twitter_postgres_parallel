@@ -349,16 +349,17 @@ def _insert_tweets(connection,input_tweets):
     ######################################## 
     # STEP 2: perform the actual SQL inserts
     ######################################## 
-    with connection.begin() as trans:
+    # connection.commit()
+    # with connection.begin() as trans:
 
         # use the bulk_insert function to insert most of the data
-        bulk_insert(connection, 'users', users)
-        bulk_insert(connection, 'users', users_unhydrated_from_tweets)
-        bulk_insert(connection, 'users', users_unhydrated_from_mentions)
-        bulk_insert(connection, 'tweet_mentions', tweet_mentions)
-        bulk_insert(connection, 'tweet_tags', tweet_tags)
-        bulk_insert(connection, 'tweet_media', tweet_media)
-        bulk_insert(connection, 'tweet_urls', tweet_urls)
+    bulk_insert(connection, 'users', users)
+    bulk_insert(connection, 'users', users_unhydrated_from_tweets)
+    bulk_insert(connection, 'users', users_unhydrated_from_mentions)
+    bulk_insert(connection, 'tweet_mentions', tweet_mentions)
+    bulk_insert(connection, 'tweet_tags', tweet_tags)
+    bulk_insert(connection, 'tweet_media', tweet_media)
+    bulk_insert(connection, 'tweet_urls', tweet_urls)
 
         # the tweets data cannot be inserted using the bulk_insert function because
         # the geo column requires special SQL code to generate the column;
@@ -368,9 +369,9 @@ def _insert_tweets(connection,input_tweets):
         # it makes your python code much more complicated,
         # and is also bad for performance;
         # I'm doing it here just to help illustrate the problems
-        #print("i am here")
-        sql = sqlalchemy.sql.text('''
-        INSERT INTO tweets
+        # print("i am here")
+    sql = sqlalchemy.sql.text('''
+    INSERT INTO tweets
             (id_tweets,id_users,created_at,in_reply_to_status_id,in_reply_to_user_id,quoted_status_id,geo,retweet_count,quote_count,favorite_count,withheld_copyright,withheld_in_countries,place_name,country_code,state_code,lang,text,source)
             VALUES
             '''
@@ -381,7 +382,7 @@ def _insert_tweets(connection,input_tweets):
             ON CONFLICT DO NOTHING
             '''
             )
-        res = connection.execute(sql, { key+str(i):value for i,tweet in enumerate(tweets) for key,value in tweet.items() })
+    res = connection.execute(sql, { key+str(i):value for i,tweet in enumerate(tweets) for key,value in tweet.items() })
 
 #print("after insert")
 
