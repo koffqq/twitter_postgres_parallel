@@ -5,7 +5,7 @@ files=$(find data/*)
 echo '================================================================================'
 echo 'load pg_denormalized'
 echo '================================================================================'
-echo "$files" | time parallel sh load_denormalized.sh
+echo "$files" | time parallel bash load_denormalized.sh
 
 echo '================================================================================'
 echo 'load pg_normalized'
