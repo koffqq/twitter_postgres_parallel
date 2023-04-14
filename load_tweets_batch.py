@@ -349,7 +349,7 @@ def _insert_tweets(connection,input_tweets):
     ######################################## 
     # STEP 2: perform the actual SQL inserts
     ######################################## 
-    #with connection.begin() as trans:
+    with connection.begin() as trans:
 
         # use the bulk_insert function to insert most of the data
         bulk_insert(connection, 'users', users)
@@ -368,6 +368,7 @@ def _insert_tweets(connection,input_tweets):
         # it makes your python code much more complicated,
         # and is also bad for performance;
         # I'm doing it here just to help illustrate the problems
+        #print("i am here")
         sql = sqlalchemy.sql.text('''
         INSERT INTO tweets
             (id_tweets,id_users,created_at,in_reply_to_status_id,in_reply_to_user_id,quoted_status_id,geo,retweet_count,quote_count,favorite_count,withheld_copyright,withheld_in_countries,place_name,country_code,state_code,lang,text,source)
@@ -382,6 +383,7 @@ def _insert_tweets(connection,input_tweets):
             )
         res = connection.execute(sql, { key+str(i):value for i,tweet in enumerate(tweets) for key,value in tweet.items() })
 
+#print("after insert")
 
 if __name__ == '__main__':
 
