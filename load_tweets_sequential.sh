@@ -13,7 +13,7 @@ echo '==========================================================================
 echo 'load pg_normalized'
 echo '================================================================================'
 #for file in $file; do
-#time python3 -u load_tweets.py --db=postgresql://postgres:pass@localhost:2219/ --inputs $files
+time python3 -u load_tweets.py --db=postgresql://postgres:pass@localhost:2219/ --inputs $files
 #done
 
 echo '================================================================================'
